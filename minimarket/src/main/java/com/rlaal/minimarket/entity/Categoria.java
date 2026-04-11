@@ -1,5 +1,6 @@
 package com.rlaal.minimarket.entity;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "categoria")
-public class Categoria {
+ public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id")
@@ -27,10 +28,8 @@ public class Categoria {
         this.fechaCreacion = fechaCreacion;
         this.nombre = nombre;
     }
-    public Categoria(String nombre, LocalDateTime fechaCreacion, LocalDateTime fechaActualizacion) {
+    public Categoria(String nombre) {
         this.nombre = nombre;
-        this.fechaCreacion = fechaCreacion;
-        this.fechaActualizacion = fechaActualizacion;
     }
 
     public Categoria() {}

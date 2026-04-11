@@ -1,9 +1,13 @@
 package com.rlaal.minimarket.service;
 
+import com.rlaal.minimarket.dto.request.CategoriaRequestDTO;
+import com.rlaal.minimarket.dto.response.CategoriaResponseDTO;
 import com.rlaal.minimarket.entity.Categoria;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface CategoriaService {
-    List<Categoria>listarCategirias();
-}
+    List<CategoriaResponseDTO>listarCategirias();
+    CategoriaResponseDTO buscarCategoria(UUID uuid);
+ }
