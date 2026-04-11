@@ -15,7 +15,7 @@ import java.util.UUID;
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id")
     private UUID id;
-    @Column(name = "nombre")
+    @Column(name = "nombre",unique = true,nullable = false)
     private String nombre;
     @Column(name = "fecha_creacion",updatable = false, insertable = false)
     private LocalDateTime fechaCreacion;
@@ -42,12 +42,12 @@ import java.util.UUID;
         this.id = id;
     }
 
-    public LocalDateTime getFechaCreacion() {
-        return fechaCreacion;
+    public LocalDateTime getFechaActualizacion() {
+        return fechaActualizacion;
     }
 
-    public void setFechaCreacion(LocalDateTime fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
     }
 
     public String getNombre() {
@@ -58,11 +58,11 @@ import java.util.UUID;
         this.nombre = nombre;
     }
 
-    public LocalDateTime getFechaActualizacion() {
-        return fechaActualizacion;
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
     }
 
-    public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
-        this.fechaActualizacion = fechaActualizacion;
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
     }
 }

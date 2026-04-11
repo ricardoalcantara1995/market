@@ -10,4 +10,5 @@ import java.util.UUID;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, UUID> {
     List<Categoria>findAllByOrderByNombreAsc();
+    boolean existsByNombre(String name);
 }

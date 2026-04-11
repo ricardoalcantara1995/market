@@ -1,5 +1,6 @@
 package com.rlaal.minimarket.controller;
 
+import com.rlaal.minimarket.dto.request.CategoriaRequestDTO;
 import com.rlaal.minimarket.dto.response.CategoriaResponseDTO;
 import com.rlaal.minimarket.entity.Categoria;
 import com.rlaal.minimarket.service.CategoriaService;
@@ -26,6 +27,11 @@ public class CategoriaController {
     @GetMapping("/{uuid}")
     ResponseEntity<CategoriaResponseDTO>buscarCategoria(@PathVariable UUID uuid){
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.buscarCategoria(uuid));
+    }
+
+    @PostMapping("/nueva")
+    ResponseEntity<CategoriaResponseDTO>crearCategoria(@RequestBody CategoriaRequestDTO dto){
+       return  ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.crearCategoria(dto));
     }
 
 }
