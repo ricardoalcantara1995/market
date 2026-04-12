@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, UUID> {
-    List<Categoria>findAllByOrderByNombreAsc();
+    List<Categoria> findAllByActivoTrueOrderByNombreAsc();
     boolean existsByNombre(String name);
     boolean existsByNombreAndIdNot(String nombre, UUID id);
 }

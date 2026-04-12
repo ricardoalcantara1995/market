@@ -2,6 +2,7 @@ package com.rlaal.minimarket.controller;
 
 import com.rlaal.minimarket.dto.request.CategoriaRequestDTO;
 import com.rlaal.minimarket.dto.response.CategoriaResponseDTO;
+import com.rlaal.minimarket.dto.response.MessageResponseDTO;
 import com.rlaal.minimarket.entity.Categoria;
 import com.rlaal.minimarket.service.CategoriaService;
 import org.springframework.http.HttpStatus;
@@ -38,4 +39,8 @@ public class CategoriaController {
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.editarCategoria(uuid,dto));
 
     }
+   @DeleteMapping("/eliminar/{uuid}")
+   ResponseEntity<MessageResponseDTO>eliminarCategoria(@PathVariable UUID uuid){
+       return ResponseEntity.status(HttpStatus.OK).body(categoriaService.eliminarCategoria(uuid));
+   }
 }

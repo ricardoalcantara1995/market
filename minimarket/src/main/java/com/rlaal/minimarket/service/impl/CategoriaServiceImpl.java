@@ -2,12 +2,14 @@ package com.rlaal.minimarket.service.impl;
 
 import com.rlaal.minimarket.dto.request.CategoriaRequestDTO;
 import com.rlaal.minimarket.dto.response.CategoriaResponseDTO;
+import com.rlaal.minimarket.dto.response.MessageResponseDTO;
 import com.rlaal.minimarket.entity.Categoria;
 import com.rlaal.minimarket.exception.DuplicateResourceException;
 import com.rlaal.minimarket.exception.ResourceNotFoundException;
 import com.rlaal.minimarket.repository.CategoriaRepository;
 import com.rlaal.minimarket.service.CategoriaService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,7 +27,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public List<CategoriaResponseDTO> listarCategirias() {
-        return categoriaRepository.findAllByOrderByNombreAsc()
+        return categoriaRepository.findAllByActivoTrueOrderByNombreAsc()
                 .stream()
                 .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre()))
                 .toList();
@@ -74,6 +76,17 @@ public class CategoriaServiceImpl implements CategoriaService {
         categoria.setFechaActualizacion( LocalDateTime.now());
 
         return new CategoriaResponseDTO(categoria.getId(),categoria.getNombre());
+    }
+
+    @Override
+    @Transactional
+    public MessageResponseDTO eliminarCategoria(UUID uuid) {
+        Categoria categoria = categoriaRepository.findById(uuid)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Categoria no encontrada")
+                );
+        categoria.setActivo(false);
+        return new MessageResponseDTO(HttpStatus.OK,"Categoria eliminada");
     }
 
 
