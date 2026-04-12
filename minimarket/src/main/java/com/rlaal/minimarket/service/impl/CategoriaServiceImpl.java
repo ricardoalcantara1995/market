@@ -7,8 +7,10 @@ import com.rlaal.minimarket.exception.DuplicateResourceException;
 import com.rlaal.minimarket.exception.ResourceNotFoundException;
 import com.rlaal.minimarket.repository.CategoriaRepository;
 import com.rlaal.minimarket.service.CategoriaService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,6 +41,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
+    @Transactional
     public CategoriaResponseDTO crearCategoria(CategoriaRequestDTO categoriaRequestDTO) {
             String nombreCategoria  = categoriaRequestDTO.getNombre();
             nombreCategoria = nombreCategoria.trim();
@@ -50,6 +53,27 @@ public class CategoriaServiceImpl implements CategoriaService {
          Categoria guardado = categoriaRepository.save(categoria);
 
         return new CategoriaResponseDTO(guardado.getId(),guardado.getNombre());
+    }
+
+    @Override
+    @Transactional
+    public CategoriaResponseDTO editarCategoria(UUID uuid, CategoriaRequestDTO categoriaRequestDTO) {
+        Categoria categoria = categoriaRepository.findById(uuid).
+                orElseThrow(
+                        () -> new ResourceNotFoundException("Categoria no existe o no se encontro")
+                );
+        String nombreLimpio = categoriaRequestDTO.getNombre();
+        nombreLimpio = nombreLimpio.trim();
+
+        boolean respuesta = categoriaRepository. existsByNombreAndIdNot(nombreLimpio,uuid);
+        if(respuesta){
+            throw  new DuplicateResourceException("Categoria ya existe");
+        }
+
+        categoria.setNombre(nombreLimpio);
+        categoria.setFechaActualizacion( LocalDateTime.now());
+
+        return new CategoriaResponseDTO(categoria.getId(),categoria.getNombre());
     }
 
 

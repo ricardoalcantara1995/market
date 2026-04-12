@@ -11,4 +11,5 @@ public interface CategoriaService {
     List<CategoriaResponseDTO>listarCategirias();
     CategoriaResponseDTO buscarCategoria(UUID uuid);
     CategoriaResponseDTO crearCategoria(CategoriaRequestDTO categoriaRequestDTO);
+    CategoriaResponseDTO editarCategoria(UUID uuid, CategoriaRequestDTO categoriaRequestDTO);
  }

@@ -4,7 +4,6 @@ import lombok.*;
 import java.util.UUID;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @ToString
 public class CategoriaResponseDTO {

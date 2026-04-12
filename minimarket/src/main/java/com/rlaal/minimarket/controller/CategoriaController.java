@@ -33,5 +33,9 @@ public class CategoriaController {
     ResponseEntity<CategoriaResponseDTO>crearCategoria(@RequestBody CategoriaRequestDTO dto){
        return  ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.crearCategoria(dto));
     }
+    @PutMapping("/editar/{uuid}")
+    ResponseEntity<CategoriaResponseDTO>editarCategoria(@PathVariable UUID uuid,@RequestBody CategoriaRequestDTO  dto ){
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.editarCategoria(uuid,dto));
 
+    }
 }
