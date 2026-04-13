@@ -11,6 +11,7 @@ import java.util.UUID;
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, UUID> {
     List<Categoria> findAllByActivoTrueOrderByNombreAsc();
+    List<Categoria> findAllByActivoFalseOrderByNombreAsc();
     boolean existsByNombre(String name);
     boolean existsByNombreAndIdNot(String nombre, UUID id);
 }

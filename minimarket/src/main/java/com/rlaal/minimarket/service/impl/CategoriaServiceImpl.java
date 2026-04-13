@@ -34,9 +34,17 @@ public class CategoriaServiceImpl implements CategoriaService {
     }
 
     @Override
+    public List<CategoriaResponseDTO> listarCategiriasInactivas() {
+        return categoriaRepository.findAllByActivoFalseOrderByNombreAsc()
+                .stream()
+                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre()))
+                .toList();
+    }
+
+    @Override
     public CategoriaResponseDTO buscarCategoria(UUID uuid) {
         return categoriaRepository.findById(uuid)
-                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre()))
+                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre(),cat.isActivo()))
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Categoria no existe o no se encontro")
                 );

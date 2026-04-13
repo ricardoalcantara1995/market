@@ -10,6 +10,7 @@ import java.util.UUID;
 
 public interface CategoriaService {
     List<CategoriaResponseDTO>listarCategirias();
+    List<CategoriaResponseDTO>listarCategiriasInactivas();
     CategoriaResponseDTO buscarCategoria(UUID uuid);
     CategoriaResponseDTO crearCategoria(CategoriaRequestDTO categoriaRequestDTO);
     CategoriaResponseDTO editarCategoria(UUID uuid, CategoriaRequestDTO categoriaRequestDTO);

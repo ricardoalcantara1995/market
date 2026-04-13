@@ -24,6 +24,10 @@ public class CategoriaController {
     ResponseEntity<List<CategoriaResponseDTO>>ListarCategoria(){
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarCategirias());
     }
+    @GetMapping("/listar-inactivas")
+    ResponseEntity<List<CategoriaResponseDTO>>ListarCategoriaInactivas(){
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarCategiriasInactivas());
+    }
 
     @GetMapping("/{uuid}")
     ResponseEntity<CategoriaResponseDTO>buscarCategoria(@PathVariable UUID uuid){
