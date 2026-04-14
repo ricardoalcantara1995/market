@@ -5,6 +5,7 @@ import com.rlaal.minimarket.dto.response.CategoriaResponseDTO;
 import com.rlaal.minimarket.dto.response.MessageResponseDTO;
 import com.rlaal.minimarket.entity.Categoria;
 import com.rlaal.minimarket.service.CategoriaService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,11 +36,11 @@ public class CategoriaController {
     }
 
     @PostMapping("/nueva")
-    ResponseEntity<CategoriaResponseDTO>crearCategoria(@RequestBody CategoriaRequestDTO dto){
+    ResponseEntity<CategoriaResponseDTO>crearCategoria(@Valid @RequestBody CategoriaRequestDTO dto){
        return  ResponseEntity.status(HttpStatus.CREATED).body(categoriaService.crearCategoria(dto));
     }
     @PutMapping("/editar/{uuid}")
-    ResponseEntity<CategoriaResponseDTO>editarCategoria(@PathVariable UUID uuid,@RequestBody CategoriaRequestDTO  dto ){
+    ResponseEntity<CategoriaResponseDTO>editarCategoria(@PathVariable UUID uuid,@Valid @RequestBody CategoriaRequestDTO  dto ){
         return ResponseEntity.status(HttpStatus.OK).body(categoriaService.editarCategoria(uuid,dto));
 
     }

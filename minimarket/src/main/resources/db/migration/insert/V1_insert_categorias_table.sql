@@ -1,11 +1,6 @@
-INSERT INTO market.categoria (nombre) VALUES
-('Lácteos y Huevos'),
-('Frutas y Verduras'),
-('Panadería y Pastelería'),
-('Carnes y Embutidos'),
-('Limpieza del Hogar'),
-('Bebidas y Licores'),
-('Cuidado Personal'),
-('Mascotas'),
-('Congelados'),
-('Snacks y Dulces');
+INSERT INTO market.categoria (nombre, descripcion) VALUES
+('Lácteos', 'Leches, yogures, quesos y mantequillas'),
+('Carnes y Embutidos', 'Cortes de res, cerdo, pollo y embutidos frescos'),
+('Frutas y Verduras', 'Productos frescos de temporada'),
+('Bebidas', 'Gaseosas, jugos, aguas y licores'),
+('Limpieza', 'Detergentes, desinfectantes y artículos de aseo');

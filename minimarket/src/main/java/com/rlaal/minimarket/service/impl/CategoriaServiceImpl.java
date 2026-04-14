@@ -29,7 +29,7 @@ public class CategoriaServiceImpl implements CategoriaService {
     public List<CategoriaResponseDTO> listarCategirias() {
         return categoriaRepository.findAllByActivoTrueOrderByNombreAsc()
                 .stream()
-                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre()))
+                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre(),cat.getDescripcion()))
                 .toList();
     }
 
@@ -37,14 +37,14 @@ public class CategoriaServiceImpl implements CategoriaService {
     public List<CategoriaResponseDTO> listarCategiriasInactivas() {
         return categoriaRepository.findAllByActivoFalseOrderByNombreAsc()
                 .stream()
-                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre()))
+                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre(),cat.getDescripcion()))
                 .toList();
     }
 
     @Override
     public CategoriaResponseDTO buscarCategoria(UUID uuid) {
         return categoriaRepository.findById(uuid)
-                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre(),cat.isActivo()))
+                .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre(),cat.getDescripcion(),cat.isActivo()))
                 .orElseThrow(
                         () -> new ResourceNotFoundException("Categoria no existe o no se encontro")
                 );
@@ -59,10 +59,10 @@ public class CategoriaServiceImpl implements CategoriaService {
             if(categoriaRepository.existsByNombreIgnoreCase(nombreCategoria)){
                     throw  new DuplicateResourceException("Categoria ya existe");
             }
-         Categoria categoria = new Categoria(nombreCategoria);
+         Categoria categoria = new Categoria(nombreCategoria,categoriaRequestDTO.getDescripcion());
          Categoria guardado = categoriaRepository.save(categoria);
 
-        return new CategoriaResponseDTO(guardado.getId(),guardado.getNombre());
+        return new CategoriaResponseDTO(guardado.getId(),guardado.getNombre(),guardado.getDescripcion());
     }
 
     @Override
@@ -81,9 +81,10 @@ public class CategoriaServiceImpl implements CategoriaService {
         }
 
         categoria.setNombre(nombreLimpio);
+        categoria.setDescripcion(categoriaRequestDTO.getDescripcion());
         categoria.setFechaActualizacion( LocalDateTime.now());
 
-        return new CategoriaResponseDTO(categoria.getId(),categoria.getNombre());
+        return new CategoriaResponseDTO(categoria.getId(),categoria.getNombre(),categoria.getDescripcion());
     }
 
     @Override

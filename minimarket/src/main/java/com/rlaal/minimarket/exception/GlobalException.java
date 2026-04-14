@@ -38,4 +38,17 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(messageResponseDTO);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<MessageResponseDTO> handleValidationErrors(MethodArgumentNotValidException ex) {
+            String error = ex.getBindingResult().getFieldErrors().get(0).getDefaultMessage();
+            error =error.replaceAll("[\\[\\]]","");
+            MessageResponseDTO messaje = new MessageResponseDTO(HttpStatus.BAD_REQUEST, error);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(messaje);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<MessageResponseDTO> handleException(Exception ex){
+        MessageResponseDTO messajeDTO = new MessageResponseDTO(HttpStatus.INTERNAL_SERVER_ERROR,"Error inesperado en el servidor");
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(messajeDTO);
+    }
 }

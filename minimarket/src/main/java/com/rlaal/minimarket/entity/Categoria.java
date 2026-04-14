@@ -17,6 +17,8 @@ import java.util.UUID;
     private UUID id;
     @Column(name = "nombre",unique = true,nullable = false)
     private String nombre;
+    @Column(name = "descripcion")
+    private String descripcion;
     @Column(name = "fecha_creacion",updatable = false, insertable = false)
     private LocalDateTime fechaCreacion;
     @Column(name = "fecha_actualizacion",insertable = false)
@@ -24,15 +26,19 @@ import java.util.UUID;
     @Column(name = "activo", nullable = false)
     private boolean activo = true;
 
-    public Categoria(UUID id, LocalDateTime fechaActualizacion, LocalDateTime fechaCreacion, String nombre,boolean activo) {
+    public Categoria(UUID id, boolean activo, LocalDateTime fechaCreacion, String descripcion, String nombre, LocalDateTime fechaActualizacion) {
         this.id = id;
-        this.fechaActualizacion = fechaActualizacion;
-        this.fechaCreacion = fechaCreacion;
-        this.nombre = nombre;
         this.activo = activo;
-    }
-    public Categoria(String nombre) {
+        this.fechaCreacion = fechaCreacion;
+        this.descripcion = descripcion;
         this.nombre = nombre;
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
+
+    public Categoria(String nombre, String descripcion) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public Categoria() {}
@@ -51,6 +57,14 @@ import java.util.UUID;
 
     public void setFechaActualizacion(LocalDateTime fechaActualizacion) {
         this.fechaActualizacion = fechaActualizacion;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {

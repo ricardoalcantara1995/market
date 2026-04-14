@@ -10,13 +10,13 @@ import java.util.UUID;
  public class CategoriaResponseDTO {
     private UUID id;
     private String nombre;
+    private  String descripcion;
     private  Boolean  activo;
 
-    public CategoriaResponseDTO(UUID id, String nombre) {
-        this.id = id;
+    public CategoriaResponseDTO( UUID id,String nombre, String descripcion) {
         this.nombre = nombre;
-        this.activo =null;
+        this.id = id;
+        this.descripcion = descripcion;
+        this.activo = null;
     }
-
-
 }
