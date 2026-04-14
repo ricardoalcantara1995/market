@@ -56,7 +56,7 @@ public class CategoriaServiceImpl implements CategoriaService {
             String nombreCategoria  = categoriaRequestDTO.getNombre();
             nombreCategoria = nombreCategoria.trim();
 
-            if(categoriaRepository.existsByNombre(nombreCategoria)){
+            if(categoriaRepository.existsByNombreIgnoreCase(nombreCategoria)){
                     throw  new DuplicateResourceException("Categoria ya existe");
             }
          Categoria categoria = new Categoria(nombreCategoria);
@@ -75,7 +75,7 @@ public class CategoriaServiceImpl implements CategoriaService {
         String nombreLimpio = categoriaRequestDTO.getNombre();
         nombreLimpio = nombreLimpio.trim();
 
-        boolean respuesta = categoriaRepository. existsByNombreAndIdNot(nombreLimpio,uuid);
+        boolean respuesta = categoriaRepository. existsByNombreIgnoreCaseAndIdNot(nombreLimpio,uuid);
         if(respuesta){
             throw  new DuplicateResourceException("Categoria ya existe");
         }
