@@ -47,7 +47,8 @@ public class Producto {
         this.fechaCreacion = fecha_creacion;
     }
 
-    public Producto(String nombre, String descripcion, BigDecimal precio, Integer stock, Categoria categoria) {
+    public Producto(UUID id,String nombre, String descripcion, BigDecimal precio, Integer stock, Categoria categoria) {
+        this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
