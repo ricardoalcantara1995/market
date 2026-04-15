@@ -2,18 +2,22 @@ package com.rlaal.minimarket.entity;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import jakarta.persistence.*;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 
 @Entity
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "categoria")
  public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "categoria_id")
+    @EqualsAndHashCode.Include
     private UUID id;
     @Column(name = "nombre",unique = true,nullable = false)
     private String nombre;
@@ -90,4 +94,6 @@ import java.util.UUID;
     public void setFechaCreacion(LocalDateTime fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
     }
+
+
 }
