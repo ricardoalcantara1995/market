@@ -12,6 +12,7 @@ import com.rlaal.minimarket.service.ProductoService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -96,6 +97,59 @@ public class ProductoServiceImpl implements ProductoService {
                 .nombreCategoria(guardado.getCategoria().getNombre())
                 .build();
 
+    }
+
+
+
+    @Override
+    @Transactional
+    public ProductoResponseDTO editarProducto(UUID id, ProductoRequestDTO productoRequestDTO) {
+           Producto producto = productoRepository.findByIdActiveWithCategory(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("No se encontró el producto con ID: "+ id)
+                );
+
+
+
+        String nombreLimpio  = productoRequestDTO.getNombre();
+        nombreLimpio = nombreLimpio.trim();
+
+        boolean respuesta = productoRepository.existsByNombreIgnoreCaseAndIdNot(nombreLimpio,id);
+        if(respuesta){
+            throw new DuplicateResourceException("El nombre del producto ya en uso");
+        }
+        boolean cambioCategoria = producto.getCategoria().getId().equals(productoRequestDTO.getCategoriaId());
+
+        if(!cambioCategoria){
+            Categoria categoria = categoriaRepository.findById(productoRequestDTO.getCategoriaId())
+                    .orElseThrow(
+                            () -> new ResourceNotFoundException("La categoria no existe")
+                    );
+            boolean estadoCategoria = categoria.isActivo();
+            if(!estadoCategoria){
+                throw  new DuplicateResourceException("Categoria no habilitada");
+            }
+            producto.setCategoria(categoria);
+        }
+
+        producto.setNombre(productoRequestDTO.getNombre());
+        producto.setDescripcion(productoRequestDTO.getDescripcion());
+        producto.setPrecio(productoRequestDTO.getPrecio());
+        producto.setStock(productoRequestDTO.getStock());
+        producto.setFechaActualizacion(LocalDateTime.now());
+        Producto productoActualizado = productoRepository.save(producto);
+
+        ProductoResponseDTO respuestaActualizacion =  ProductoResponseDTO.builder()
+                .id(id)
+                .nombre(productoActualizado.getNombre())
+                .descripcion(productoActualizado.getDescripcion())
+                .precio(productoActualizado.getPrecio())
+                .stock(productoActualizado.getStock())
+                .nombreCategoria(productoActualizado.getCategoria().getNombre())
+                .build();
+
+
+        return respuestaActualizacion;
     }
 
 

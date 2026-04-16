@@ -32,4 +32,8 @@ public class ProductoController {
    ResponseEntity<ProductoResponseDTO>crearProducto(@Valid @RequestBody ProductoRequestDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(productoService.crearProducto(dto));
    }
+   @PutMapping("/editar/{id}")
+    ResponseEntity<ProductoResponseDTO>editarProducto(@PathVariable UUID id,@Valid @RequestBody ProductoRequestDTO dto){
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.editarProducto(id,dto));
+   }
 }

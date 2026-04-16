@@ -20,4 +20,5 @@ public interface ProductoRepository extends JpaRepository<Producto, UUID> {
     Optional<Producto> findByIdActiveWithCategory(@Param("id") UUID id);
 
     boolean existsByNombreIgnoreCase(String nombre);
+    boolean existsByNombreIgnoreCaseAndIdNot(String nombre, UUID id);
 }
