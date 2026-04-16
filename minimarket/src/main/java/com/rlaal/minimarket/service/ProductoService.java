@@ -1,6 +1,7 @@
 package com.rlaal.minimarket.service;
 
 import com.rlaal.minimarket.dto.request.ProductoRequestDTO;
+import com.rlaal.minimarket.dto.response.MessageResponseDTO;
 import com.rlaal.minimarket.dto.response.ProductoResponseDTO;
 import com.rlaal.minimarket.entity.Producto;
 import jakarta.transaction.Transactional;
@@ -13,4 +14,5 @@ public interface ProductoService {
     ProductoResponseDTO buscarProducto(UUID id);
     ProductoResponseDTO crearProducto(ProductoRequestDTO productoRequestDTO);
     ProductoResponseDTO editarProducto(UUID id, ProductoRequestDTO productoRequestDTO);
+    MessageResponseDTO eliminarProducto(UUID id);
 }

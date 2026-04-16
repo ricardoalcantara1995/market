@@ -1,5 +1,6 @@
 package com.rlaal.minimarket.controller;
 import com.rlaal.minimarket.dto.request.ProductoRequestDTO;
+import com.rlaal.minimarket.dto.response.MessageResponseDTO;
 import com.rlaal.minimarket.dto.response.ProductoResponseDTO;
 import com.rlaal.minimarket.service.ProductoService;
 import jakarta.validation.Valid;
@@ -36,4 +37,10 @@ public class ProductoController {
     ResponseEntity<ProductoResponseDTO>editarProducto(@PathVariable UUID id,@Valid @RequestBody ProductoRequestDTO dto){
         return ResponseEntity.status(HttpStatus.OK).body(productoService.editarProducto(id,dto));
    }
+
+    @DeleteMapping("/eliminar/{uuid}")
+    ResponseEntity<MessageResponseDTO>eliminarProducto(@PathVariable UUID uuid){
+        return ResponseEntity.status(HttpStatus.OK).body(productoService.eliminarProducto(uuid));
+    }
+
 }

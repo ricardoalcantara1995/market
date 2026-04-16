@@ -1,6 +1,7 @@
 package com.rlaal.minimarket.service.impl;
 
 import com.rlaal.minimarket.dto.request.ProductoRequestDTO;
+import com.rlaal.minimarket.dto.response.MessageResponseDTO;
 import com.rlaal.minimarket.dto.response.ProductoResponseDTO;
 import com.rlaal.minimarket.entity.Categoria;
 import com.rlaal.minimarket.entity.Producto;
@@ -10,6 +11,7 @@ import com.rlaal.minimarket.repository.CategoriaRepository;
 import com.rlaal.minimarket.repository.ProductoRepository;
 import com.rlaal.minimarket.service.ProductoService;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -150,6 +152,17 @@ public class ProductoServiceImpl implements ProductoService {
 
 
         return respuestaActualizacion;
+    }
+
+    @Override
+    @Transactional
+    public MessageResponseDTO eliminarProducto(UUID id) {
+        Producto producto = productoRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Producto no encontrado")
+                );
+        producto.setActivo(false);
+        return new MessageResponseDTO(HttpStatus.OK,"Producto eliminado");
     }
 
 
