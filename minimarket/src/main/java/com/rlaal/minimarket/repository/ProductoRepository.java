@@ -18,4 +18,6 @@ public interface ProductoRepository extends JpaRepository<Producto, UUID> {
     @Query("Select p From Producto p JOIN FETCH p.categoria " +
             "WHERE p.activo = true AND p.id = :id")
     Optional<Producto> findByIdActiveWithCategory(@Param("id") UUID id);
+
+    boolean existsByNombreIgnoreCase(String nombre);
 }

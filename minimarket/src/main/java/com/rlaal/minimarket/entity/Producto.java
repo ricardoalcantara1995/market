@@ -56,6 +56,14 @@ public class Producto {
         this.categoria = categoria;
     }
 
+    public Producto(String nombre, String descripcion, BigDecimal precio, Integer stock, Categoria categoria) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.stock = stock;
+        this.categoria = categoria;
+    }
+
     public Producto() {}
 
     public UUID getId() {
