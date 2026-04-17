@@ -26,7 +26,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 
     @Override
-    public List<CategoriaResponseDTO> listarCategirias() {
+    public List<CategoriaResponseDTO> listarCategorias() {
         return categoriaRepository.findAllByActivoTrueOrderByNombreAsc()
                 .stream()
                 .map(cat -> new CategoriaResponseDTO(cat.getId(),cat.getNombre(),cat.getDescripcion()))

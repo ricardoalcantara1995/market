@@ -23,7 +23,7 @@ public class CategoriaController {
     }
     @GetMapping("/listar")
     ResponseEntity<List<CategoriaResponseDTO>>ListarCategoria(){
-        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarCategirias());
+        return ResponseEntity.status(HttpStatus.OK).body(categoriaService.listarCategorias());
     }
     @GetMapping("/listar-inactivas")
     ResponseEntity<List<CategoriaResponseDTO>>ListarCategoriaInactivas(){
